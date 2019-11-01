@@ -54,15 +54,21 @@ $(document).ready(function () {
 
     // login
     $('#login').click(function() {
-        var url = "http://127.0.0.1:5000/hello";
+        var url = "http://service-ldov3q1z-1253337859.ap-beijing.apigateway.myqcloud.com/release/login";
         var data = {
             "username": $.trim($('#login-username').val()),
             "password": $.trim($('#login-password').val())
         }
-        var success = function (data, staus) {
-            console.log(data)
-            console.log(status)
+        var success = function (data, status) {
+            if (status == 'success' && data["status"] == 200) {
+                location.href = "dashboard.html";
+            }
         }
-        $.post(url, data, success, 'json');
+        url += "?username=" + $.trim($('#login-username').val()) + 
+        "&password=" + $.trim($('#login-password').val())
+        console.log(url)
+        // $.get(url, data, success, "json");
+        $.get(url, success);
+        return false;
     });
 });
