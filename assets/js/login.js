@@ -5,7 +5,7 @@ $(document).ready(function () {
     // Universal Form Validation
     // ------------------------------------------------------ //
 
-    $('.form-validate').each(function() {
+    $('.form-validate').each(function () {
         $(this).validate({
             errorElement: "div",
             errorClass: 'is-invalid',
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 //console.log(element);
                 if (element.prop("type") === "checkbox") {
                     error.insertAfter(element.siblings("label"));
-                } 
+                }
                 else {
                     error.insertAfter(element);
                 }
@@ -53,22 +53,22 @@ $(document).ready(function () {
     });
 
     // login
-    $('#login').click(function() {
-        var url = "http://service-ldov3q1z-1253337859.ap-beijing.apigateway.myqcloud.com/release/login";
+    $('#login').click(function () {
         var data = {
             "username": $.trim($('#login-username').val()),
             "password": $.trim($('#login-password').val())
-        }
+        };
         var success = function (data, status) {
+            console.log("success: " + status);
             if (status == 'success' && data["status"] == 200) {
                 location.href = "dashboard.html";
             }
+        };
+        try {
+            scf("login", 'POST', data, success);
+        } catch (error) {
+            console.log(error)
         }
-        url += "?username=" + $.trim($('#login-username').val()) + 
-        "&password=" + $.trim($('#login-password').val())
-        console.log(url)
-        // $.get(url, data, success, "json");
-        $.get(url, success);
         return false;
     });
 });
