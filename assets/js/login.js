@@ -54,18 +54,29 @@ $(document).ready(function () {
 
     // login
     $('#login').click(function () {
-        var data = {
-            "username": $.trim($('#login-username').val()),
-            "password": $.trim($('#login-password').val())
+        var body = {
+            "username":$.trim($('#login-username').val()),
+            "password":$.trim($('#login-password').val())
         };
+        // var dat = new Object();
+        // dat.username = $.trim($('#login-username').val());
+        // dat.password = $.trim($('#login-password').val());
         var success = function (data, status) {
-            console.log("success: " + status);
-            if (status == 'success' && data["status"] == 200) {
-                location.href = "dashboard.html";
+            if (status === 'success') {
+                try {
+                    console.log(data);
+                    if (data["status"] == 200) {
+                        location.href = "dashboard.html";
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+            } else {
+                console.log("status false");
             }
         };
         try {
-            scf("login", 'POST', data, success);
+            alifc("login", 'POST', body, success);
         } catch (error) {
             console.log(error)
         }
