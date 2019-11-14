@@ -61,11 +61,12 @@ $(document).ready(function () {
         // var dat = new Object();
         // dat.username = $.trim($('#login-username').val());
         // dat.password = $.trim($('#login-password').val());
-        var success = function (data, status) {
+        var success = function (data, status, xhr) {
             if (status === 'success') {
                 try {
-                    console.log(data);
                     if (data["status"] == 200) {
+                        localStorage.setItem("aud", xhr.getResponseHeader("Audience"))
+                        localStorage.setItem("auth", xhr.getResponseHeader("Authorization"))
                         location.href = "dashboard.html";
                     }
                 } catch (e) {
@@ -77,8 +78,8 @@ $(document).ready(function () {
         };
         try {
             fc("/login", 'POST', body, success);
-        } catch (error) {
-            console.log(error)
+        } catch (e) {
+            console.log(e)
         }
         return false;
     });

@@ -2,6 +2,7 @@
 "use strict";
 const FC_BASE_URL = "https://1459473231569671.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/abhouse_main/index"
 const TEST_URL = "http://localhost:8000/2016-08-15/proxy/abhouse_main/index"
+const TEST2_URL = "http://127.0.0.1:9000"
 function fc(path, method, data, success) {
     var url = FC_BASE_URL + path;
     var dateTime = new Date().toGMTString();
@@ -28,6 +29,8 @@ function fc(path, method, data, success) {
             xhr.setRequestHeader("X-Ca-Siguature", sig);
             xhr.setRequestHeader("X-Ca-SignatureMethod", "HmacSHA256");
             xhr.setRequestHeader("X-Ca-SignatureHeaders", "X-Ca-Key,X-Ca-Nonce");
+            xhr.setRequestHeader("Audience", localStorage.getItem("aud"));
+            xhr.setRequestHeader("Authorization", localStorage.getItem("auth"));
         },
         dataType: 'json',
         success: success,
