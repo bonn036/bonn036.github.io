@@ -15,10 +15,10 @@ function fc(path, method, data, success) {
         type: method,
         contentType: "application/json",
         data: JSON.stringify(data),
-        crossDomain: true,
-        xhrFields: {
-            withCredentials: true
-        },
+        // crossDomain: true,
+        // xhrFields: {
+        //     withCredentials: true
+        // },
         beforeSend: function (xhr) {
             xhr.setRequestHeader("X-Date", dateTime);
             xhr.setRequestHeader("source", source);
