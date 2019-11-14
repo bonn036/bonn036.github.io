@@ -76,7 +76,7 @@ $(document).ready(function () {
             }
         };
         try {
-            alifc("login", 'POST', body, success);
+            fc("/login", 'POST', body, success);
         } catch (error) {
             console.log(error)
         }
