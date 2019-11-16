@@ -180,7 +180,8 @@ $(document).ready(function () {
 			if (status === 'success') {
 				try {
 					if (data["status"] == 200) {
-						sessionStorage.clear();
+						localStorage.removeItem("aud");
+						localStorage.removeItem("auth");
 						location.href = "index.html";
 					}
 				} catch (e) {
