@@ -4,7 +4,7 @@ const FC_BASE_URL = "https://1459473231569671.cn-beijing.fc.aliyuncs.com/2016-08
 const TEST_URL = "http://localhost:8000/2016-08-15/proxy/abhouse_main/index"
 const TEST2_URL = "http://127.0.0.1:9000"
 function fc(path, method, data, onSuccess, onError, onComplete) {
-    var url = TEST2_URL + path;
+    var url = FC_BASE_URL + path;
     var dateTime = new Date().toGMTString();
     var appKey = "203758497"
     var source = 'web';
