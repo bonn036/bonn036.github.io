@@ -146,11 +146,9 @@ $(document).ready(function () {
 		// "username": $.trim($('#login-username').val()),
 		// "password": $.trim($('#login-password').val())
 	};
-	var success = function (data, status) {
-		console.log(status);
+	var success = function (data, status, xhr) {
 		if (status === 'success') {
 			try {
-				console.log(data["status"]);
 				if (data["status"] != 200) {
 					location.href = "index.html";
 				}
@@ -166,5 +164,38 @@ $(document).ready(function () {
 	} catch (error) {
 		console.log(error)
 	}
+	var error = function (xhr, status, e) {
+		location.href = "index.html";
+	};
+	try {
+		fc("/users", 'GET', body, success, error);
+	} catch (error) {
+		console.log(error)
+	}
+
+
+	// logout
+	$('#logout').click(function () {
+		var success = function (data, status, xhr) {
+			if (status === 'success') {
+				try {
+					if (data["status"] == 200) {
+						sessionStorage.clear();
+						location.href = "index.html";
+					}
+				} catch (e) {
+					console.log(e);
+				}
+			} else {
+				console.log("status false");
+			}
+		};
+		try {
+			fc("/logout", 'GET', "", success);
+		} catch (e) {
+			console.log(e)
+		}
+		return false;
+	});
 
 });

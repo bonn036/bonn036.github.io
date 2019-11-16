@@ -65,8 +65,8 @@ $(document).ready(function () {
             if (status === 'success') {
                 try {
                     if (data["status"] == 200) {
-                        localStorage.setItem("aud", xhr.getResponseHeader("Audience"))
-                        localStorage.setItem("auth", xhr.getResponseHeader("Authorization"))
+                        sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"))
+                        sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"))
                         location.href = "dashboard.html";
                     }
                 } catch (e) {
