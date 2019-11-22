@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ABHouse</title>
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="./assets/vendor/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <link rel="stylesheet" href="./assets/css/main.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="./assets/css/login.css" id="theme-stylesheet">
+    <link rel="icon" href="./assets/images/favicon.png">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <!-- Text Logo - Use this if you don't have a graphic logo -->
+        <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> -->
+
+        <!-- Image Logo -->
+        <a class="navbar-brand logo-image" href="index.html"><img src="./assets/images/logo.png" alt="alternative"></a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-awesome fas fa-bars"></span>
+            <span class="navbar-toggler-awesome fas fa-times"></span>
+        </button>
+        <!-- end of mobile menu toggle button -->
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#header">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link page-scroll" href="#services">产品服务 <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle page-scroll" href="#services" id="navbarDropdownService"
+						role="button" aria-haspopup="true" aria-expanded="false">产品服务</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownService">
+						<a class="dropdown-item" href="terms-conditions.html"><span class="item-text">票据</span></a>
+						<div class="dropdown-items-divide-hr"></div>
+						<a class="dropdown-item" href="privacy-policy.html"><span class="item-text">融资</span></a>
+						<div class="dropdown-items-divide-hr"></div>
+						<a class="dropdown-item" href="privacy-policy.html"><span class="item-text">供应链</span></a>
+					</div>
+				</li> -->
+                <!-- Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle page-scroll" href="#about" id="navbarDropdownAbout" role="button"
+                        aria-haspopup="true" aria-expanded="false">关于我们</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownAbout">
+                        <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">条件条款</span></a>
+                        <div class="dropdown-items-divide-hr"></div>
+                        <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">隐私政策</span></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- end of navbar -->
+
+
+    <div class="page login-page">
+        <div class="container">
+            <div class="form-outer text-center d-flex align-items-center">
+                <div class="form-inner m-auto">
+                    <div class="logo text-uppercase"><span>AB-</span><strong class="text-primary">House</strong></div>
+                    <p>Welcome to AB-House</p>
+                    <form method="post" class="text-left form-validate">
+                        <div class="form-group-material">
+                            <input id="login-username" type="text" name="loginUsername" required
+                                data-msg="Please enter your username" class="input-material">
+                            <label for="login-username" class="label-material">Username</label>
+                        </div>
+                        <div class="form-group-material">
+                            <input id="login-password" type="password" name="loginPassword" required
+                                data-msg="Please enter your password" class="input-material">
+                            <label for="login-password" class="label-material">Password</label>
+                        </div>
+                        <div class="form-group text-center">
+                            <input id="login" type="submit" value="login" class="btn btn-primary">
+                        </div>
+                    </form>
+
+                    <a href="#" class="forgot-pass">Forgot Password?</a>
+
+
+                    <small>Do not have an account? </small>
+                    <a href="register.html" class="signup">Signup</a>
+                </div>
+                <div class="copyrights text-center">
+                    <p>© 2019 ABHouse All Right Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript files-->
+    <script src="./assets/vendor/jquery/jquery-3.4.1.min.js"></script>
+    <script src="./assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="./assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+
+    <script src="./assets/vendor/crypto-js/core-min.js"></script>
+    <script src="./assets/vendor/crypto-js/hmac-sha1.js"></script>
+    <script src="./assets/vendor/crypto-js/enc-base64-min.js"></script>
+
+    <script src="./assets/vendor/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script src="./assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Main File-->
+    <script src="./assets/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+    <script src="./assets/js/fc.js"></script>
+    <script src="./assets/js/login.js"></script>
+</body>
+
+</html>
