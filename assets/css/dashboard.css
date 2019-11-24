@@ -72,11 +72,19 @@ footer {
   padding-top: 15px;
   padding-bottom: 10px; }
 
-.copyright {
+/* .copyright {
   margin-bottom: 0;
   text-align: right;
   font-size: 13px;
+} */
+.copyright {
+	padding-top: 1rem;
+	padding-bottom: 0.5rem;
+	background-color: #113448;
+  text-align: center;
+  color: white;
 }
+
 .bg-warning {
   background-color: #ec971f;
 }
@@ -975,5 +983,7 @@ ul.notifications > li > .more:hover, ul.notifications > li > .more:focus {
   background-color: #F9354C; }
 
 /* toastr notification */
-
+.search-group {
+	height: 2rem;
+}
 /*========================Thank you=================*/
