@@ -162,64 +162,6 @@
     });
 
 
-    /* Call Me Form */
-    $("#callMeForm").validator().on("submit", function (event) {
-        if (event.isDefaultPrevented()) {
-            // handle the invalid form...
-            lformError();
-            lsubmitMSG(false, "Please fill all fields!");
-        } else {
-            // everything looks good!
-            event.preventDefault();
-            lsubmitForm();
-        }
-    });
-
-    function lsubmitForm() {
-        // initiate variables with form content
-        var name = $("#lname").val();
-        var phone = $("#lphone").val();
-        var email = $("#lemail").val();
-        var select = $("#lselect").val();
-        var terms = $("#lterms").val();
-
-        $.ajax({
-            type: "POST",
-            url: "php/callmeform-process.php",
-            data: "name=" + name + "&phone=" + phone + "&email=" + email + "&select=" + select + "&terms=" + terms,
-            success: function (text) {
-                if (text == "success") {
-                    lformSuccess();
-                } else {
-                    lformError();
-                    lsubmitMSG(false, text);
-                }
-            }
-        });
-    }
-
-    function lformSuccess() {
-        $("#callMeForm")[0].reset();
-        lsubmitMSG(true, "Request Submitted!");
-        $("input").removeClass('notEmpty'); // resets the field label after submission
-    }
-
-    function lformError() {
-        $("#callMeForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-            $(this).removeClass();
-        });
-    }
-
-    function lsubmitMSG(valid, msg) {
-        if (valid) {
-            var msgClasses = "h3 text-center tada animated";
-        } else {
-            var msgClasses = "h3 text-center";
-        }
-        $("#lmsgSubmit").removeClass().addClass(msgClasses).text(msg);
-    }
-
-
     /* Login Form */
     $("#loginForm").validator().on("submit", function (event) {
         if (event.isDefaultPrevented()) {
@@ -245,9 +187,16 @@
             if (status === 'success') {
                 try {
                     if (data["status"] == 200) {
-                        sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"))
-                        sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"))
-                        location.href = "dashboard.html";
+                        cformSuccess();
+                        var group = xhr.getResponseHeader("Group");
+                        sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"));
+                        sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
+                        sessionStorage.setItem("group", group);
+                        if (group == 1) {
+                            location.href = "cms.html";
+                        } else if (group == 2) {
+                            location.href = "dashboard.html";
+                        }
                     }
                 } catch (e) {
                     console.log(e);
@@ -257,7 +206,7 @@
             }
         };
         try {
-            fc("/login", 'POST', body, success);
+            fc("/login", 'POST', body, success, cformError());
         } catch (e) {
             console.log(e)
         }
@@ -284,72 +233,6 @@
             var msgClasses = "h3 text-center";
         }
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
-    }
-
-
-    /* Privacy Form */
-    $("#privacyForm").validator().on("submit", function (event) {
-        if (event.isDefaultPrevented()) {
-            // handle the invalid form...
-            pformError();
-            psubmitMSG(false, "Please fill all fields!");
-        } else {
-            // everything looks good!
-            event.preventDefault();
-            psubmitForm();
-        }
-    });
-
-    function psubmitForm() {
-        var body = {
-            "username": $.trim($('#login-username').val()),
-            "password": $.trim($('#login-password').val())
-        };
-        // var dat = new Object();
-        // dat.username = $.trim($('#login-username').val());
-        // dat.password = $.trim($('#login-password').val());
-        var success = function (data, status, xhr) {
-            if (status === 'success') {
-                try {
-                    if (data["status"] == 200) {
-                        sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"))
-                        sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"))
-                        location.href = "dashboard.html";
-                    }
-                } catch (e) {
-                    console.log(e);
-                }
-            } else {
-                console.log("status false");
-            }
-        };
-        try {
-            fc("/login", 'POST', body, success);
-        } catch (e) {
-            console.log(e)
-        }
-        return false;
-    }
-
-    function pformSuccess() {
-        $("#privacyForm")[0].reset();
-        psubmitMSG(true, "Request Submitted!");
-        $("input").removeClass('notEmpty'); // resets the field label after submission
-    }
-
-    function pformError() {
-        $("#privacyForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-            $(this).removeClass();
-        });
-    }
-
-    function psubmitMSG(valid, msg) {
-        if (valid) {
-            var msgClasses = "h3 text-center tada animated";
-        } else {
-            var msgClasses = "h3 text-center";
-        }
-        $("#pmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
 
 

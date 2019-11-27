@@ -31,6 +31,7 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
             xhr.setRequestHeader("X-Ca-SignatureHeaders", "X-Ca-Key,X-Ca-Nonce");
             xhr.setRequestHeader("Audience", sessionStorage.getItem("aud"));
             xhr.setRequestHeader("Authorization", sessionStorage.getItem("auth"));
+            xhr.setRequestHeader("Group", sessionStorage.getItem("group"));
         },
         dataType: 'json',
         success: onSuccess,
@@ -45,6 +46,7 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
         // complete: function (xhr, status) {
         //     console.log("oncomplete: " + status);
         // },
+        // async: async,
     });
 }
 
