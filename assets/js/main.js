@@ -193,7 +193,7 @@
                         sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
                         sessionStorage.setItem("group", group);
                         if (group == 1) {
-                            location.href = "cms.html";
+                            location.href = "https://abhouse.xyz/abhouse_dashboard";
                         } else if (group == 2) {
                             location.href = "dashboard.html";
                         }
