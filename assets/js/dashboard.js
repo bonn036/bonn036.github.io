@@ -45,7 +45,7 @@
 			location.href = "index.html";
 		};
 		try {
-			fc("/users", 'GET', body, success, error, async = false);
+			fc("/users", 'GET', body, success, error);
 		} catch (error) {
 			console.log(error)
 		}
