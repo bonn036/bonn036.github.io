@@ -21,17 +21,21 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
         //     withCredentials: true
         // },
         beforeSend: function (xhr) {
-            xhr.setRequestHeader("X-Date", dateTime);
-            xhr.setRequestHeader("source", source);
-            xhr.setRequestHeader("X-Ca-Key", appKey);
-            xhr.setRequestHeader("X-Ca-Nonce", Nonce);
-            xhr.setRequestHeader("Content-MD5", contentMD5);
-            xhr.setRequestHeader("X-Ca-Siguature", sig);
-            xhr.setRequestHeader("X-Ca-SignatureMethod", "HmacSHA256");
-            xhr.setRequestHeader("X-Ca-SignatureHeaders", "X-Ca-Key,X-Ca-Nonce");
-            xhr.setRequestHeader("Audience", sessionStorage.getItem("aud"));
-            xhr.setRequestHeader("Authorization", sessionStorage.getItem("auth"));
-            xhr.setRequestHeader("Group", sessionStorage.getItem("group"));
+            // xhr.setRequestHeader("X-Date", dateTime);
+            // xhr.setRequestHeader("source", source);
+            // xhr.setRequestHeader("X-Ca-Key", appKey);
+            // xhr.setRequestHeader("X-Ca-Nonce", Nonce);
+            // xhr.setRequestHeader("Content-MD5", contentMD5);
+            // xhr.setRequestHeader("X-Ca-Siguature", sig);
+            // xhr.setRequestHeader("X-Ca-SignatureMethod", "HmacSHA256");
+            // xhr.setRequestHeader("X-Ca-SignatureHeaders", "X-Ca-Key,X-Ca-Nonce");
+
+            // xhr.setRequestHeader("Audience", sessionStorage.getItem("aud"));
+            // xhr.setRequestHeader("Authorization", sessionStorage.getItem("auth"));
+            // xhr.setRequestHeader("Group", sessionStorage.getItem("group"));
+            xhr.setRequestHeader("Audience", getCookie("aud"));
+            xhr.setRequestHeader("Authorization", getCookie("auth"));
+            xhr.setRequestHeader("Group", getCookie("group"));
         },
         dataType: 'json',
         success: onSuccess,
@@ -159,4 +163,26 @@ function createUuid() {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
+}
+
+function setCookie(name, value) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 60 * 60 * 1000);
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+}
+
+function getCookie(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+function delCookie(name) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }

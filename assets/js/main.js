@@ -188,10 +188,14 @@
                 try {
                     if (data["status"] == 200) {
                         cformSuccess();
-                        var group = xhr.getResponseHeader("Group");
-                        sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"));
-                        sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
-                        sessionStorage.setItem("group", group);
+                        // var group = xhr.getResponseHeader("Group");
+                        // sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"));
+                        // sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
+                        // sessionStorage.setItem("group", group);
+                        setCookie("aud", xhr.getResponseHeader("Audience"))
+                        setCookie("auth", xhr.getResponseHeader("Authorization"))
+                        setCookie("group", xhr.getResponseHeader("group"))
+
                         if (group == 1) {
                             location.href = "./abhouse_dashboard";
                         } else if (group == 2) {
@@ -206,7 +210,7 @@
             }
         };
         try {
-            fc("/login", 'POST', body, success, cformError());
+            fc("/user/login", 'POST', body, success, cformError());
         } catch (e) {
             console.log(e)
         }
@@ -253,6 +257,5 @@
     $(".button, a, button").mouseup(function () {
         $(this).blur();
     });
-
 
 })(jQuery);

@@ -45,7 +45,7 @@
 			location.href = "index.html";
 		};
 		try {
-			fc("/users", 'GET', body, success, error);
+			fc("/user/info", 'GET', body, success, error);
 		} catch (error) {
 			console.log(error)
 		}
@@ -56,9 +56,12 @@
 				if (status === 'success') {
 					try {
 						if (data["status"] == 200) {
-							sessionStorage.removeItem("aud");
-							sessionStorage.removeItem("auth");
-							sessionStorage.removeItem("group");
+							// sessionStorage.removeItem("aud");
+							// sessionStorage.removeItem("auth");
+							// sessionStorage.removeItem("group");
+							delCookie("aud");
+							delCookie("auth");
+							delCookie("group");
 							location.href = "index.html";
 						}
 					} catch (e) {
@@ -69,7 +72,7 @@
 				}
 			};
 			try {
-				fc("/logout", 'GET', "", success);
+				fc("/user/logout", 'GET', "", success);
 			} catch (e) {
 				console.log(e)
 			}
