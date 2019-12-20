@@ -196,10 +196,10 @@
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
                         setCookie("group", group)
 
-                        if (group == 1) {
-                            location.href = "./abhouse_dashboard";
-                        } else if (group == 2) {
-                            location.href = "./dashboard.html";
+                        if (group < 10) {
+                            location.href = "./ab_cms";
+                        } else {
+                            location.href = "./ab_dashboard";
                         }
                     }
                 } catch (e) {
