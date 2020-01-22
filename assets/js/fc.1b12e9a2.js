@@ -35,7 +35,7 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
             // xhr.setRequestHeader("Group", sessionStorage.getItem("group"));
             xhr.setRequestHeader("Audience", getCookie("aud"));
             xhr.setRequestHeader("Authorization", getCookie("auth"));
-            xhr.setRequestHeader("Group", getCookie("group"));
+            // xhr.setRequestHeader("Group", getCookie("group"));
         },
         dataType: 'json',
         success: onSuccess,
@@ -105,7 +105,8 @@ function headersToSign() {
         if (!name.startsWith('x-ca-')) {
             continue;
         }
-        if (name === "x-ca-signature" || name === "x-ca-signature-headers" || name == "x-ca-key" || name === 'x-ca-nonce') {
+        if (name === "x-ca-signature" || name === "x-ca-signature-headers" ||
+            name == "x-ca-key" || name === 'x-ca-nonce') {
             continue;
         }
         var value = request.headers[name];

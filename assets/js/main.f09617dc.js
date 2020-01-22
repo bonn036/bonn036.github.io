@@ -188,19 +188,19 @@
                 try {
                     if (data["status"] == 200) {
                         cformSuccess();
-                        var group = xhr.getResponseHeader("Group");
+                        // var group = xhr.getResponseHeader("Group");
                         // sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"));
                         // sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
                         // sessionStorage.setItem("group", group);
                         setCookie("aud", xhr.getResponseHeader("Audience"))
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
-                        setCookie("group", group)
+                        // setCookie("group", group)
 
-                        if (group < 10) {
-                            location.href = "./ab_cms";
-                        } else {
+                        // if (group < 10) {
+                        //     location.href = "./ab_cms";
+                        // } else {
                             location.href = "./ab_dashboard";
-                        }
+                        // }
                     }
                 } catch (e) {
                     console.log(e);

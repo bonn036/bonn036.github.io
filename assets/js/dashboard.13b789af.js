@@ -61,7 +61,7 @@
 							// sessionStorage.removeItem("group");
 							delCookie("aud");
 							delCookie("auth");
-							delCookie("group");
+							// delCookie("group");
 							location.href = "index.html";
 						}
 					} catch (e) {
