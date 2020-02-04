@@ -105,8 +105,7 @@ function headersToSign() {
         if (!name.startsWith('x-ca-')) {
             continue;
         }
-        if (name === "x-ca-signature" || name === "x-ca-signature-headers" ||
-            name == "x-ca-key" || name === 'x-ca-nonce') {
+        if (name === "x-ca-signature" || name === "x-ca-signature-headers" || name == "x-ca-key" || name === 'x-ca-nonce') {
             continue;
         }
         var value = request.headers[name];
