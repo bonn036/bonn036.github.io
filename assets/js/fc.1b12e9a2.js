@@ -19,7 +19,8 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
     var appKey = "203758497"
     var timeStamp = new Date().getTime() + "";
     var nonce = guid();
-    var contentType = "CONTENT_TYPE_TEXT";
+    // var contentType = "CONTENT_TYPE_TEXT";
+    var contentType = "application/json";
     var contentMD5 = CryptoJS.enc.Base64.stringify(CryptoJS.MD5(CryptoJS.enc.Utf8.parse(body)));
     var stage = "RELEASE";
     var audience = getCookie("aud");
