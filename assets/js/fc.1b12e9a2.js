@@ -18,26 +18,27 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
 
     var appKey = "203758497"
     var timeStamp = new Date().getTime() + "";
-    var Nonce = guid();
+    var nonce = guid();
     var contentType = "CONTENT_TYPE_TEXT";
     var contentMD5 = CryptoJS.enc.Base64.stringify(CryptoJS.MD5(CryptoJS.enc.Utf8.parse(body)));
-    var Stage = "RELEASE";
-    var Audience = getCookie("aud");
-    var Authorization = getCookie("auth");
+    var stage = "RELEASE";
+    var audience = getCookie("aud");
+    var authorization = getCookie("auth");
     var sigHeaders = "X-Ca-Key,X-Ca-Nonce,X-Ca-Stage,Audience,Authorization";
     var headers = "X-Ca-Key:" + appKey + "\n" +
-        "X-Ca-Nonce:" + Nonce + "\n" +
-        "X-Ca-Stage:" + Stage + "\n" +
-        "Audience:" + (Audience == null ? "" : Audience) + "\n" +
-        "Authorization:" + (Authorization == null ? "" : Authorization) + "\n";
+        "X-Ca-Nonce:" + nonce + "\n" +
+        "X-Ca-Stage:" + stage + "\n" +
+        "Audience:" + (audience == null ? "" : audience) + "\n" +
+        "Authorization:" + (authorization == null ? "" : authorization) + "\n";
     var url = FC_BASE_URL + path;
+
     var stringToSign = method + "\n" + 
         contentMD5 + "\n" +
         contentType + "\n" +
         timeStamp + "\n" +
         headers +
         url;
-    var sig = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(stringToSign), Nonce));
+    var sig = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(stringToSign), nonce));
 
     $.ajax({
         url: url,
@@ -53,12 +54,12 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
             xhr.setRequestHeader("X-Ca-Siguature", sig);
             xhr.setRequestHeader("X-Ca-Signature-Headers", sigHeaders);
             xhr.setRequestHeader("X-Timestamp", timeStamp);
-            xhr.setRequestHeader("X-Ca-Nonce", Nonce);
+            xhr.setRequestHeader("X-Ca-Nonce", nonce);
             xhr.setRequestHeader("Content-Type", contentType);
             xhr.setRequestHeader("Content-MD5", contentMD5);
-            xhr.setRequestHeader("X-Ca-Stage", Stage);
-            xhr.setRequestHeader("Audience", Audience);
-            xhr.setRequestHeader("Authorization", Authorization);
+            xhr.setRequestHeader("X-Ca-Stage", stage);
+            xhr.setRequestHeader("Audience", audience);
+            xhr.setRequestHeader("Authorization", authorization);
         },
         dataType: 'json',
         success: onSuccess,
