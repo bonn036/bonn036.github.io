@@ -180,27 +180,14 @@
             "username": $.trim($('#login-username').val()),
             "password": $.trim($('#login-password').val())
         };
-        // var dat = new Object();
-        // dat.username = $.trim($('#login-username').val());
-        // dat.password = $.trim($('#login-password').val());
         var success = function (data, status, xhr) {
             if (status === 'success') {
                 try {
                     if (data["status"] == 200) {
                         cformSuccess();
-                        // var group = xhr.getResponseHeader("Group");
-                        // sessionStorage.setItem("aud", xhr.getResponseHeader("Audience"));
-                        // sessionStorage.setItem("auth", xhr.getResponseHeader("Authorization"));
-                        // sessionStorage.setItem("group", group);
                         setCookie("aud", xhr.getResponseHeader("Audience"))
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
-                        // setCookie("group", group)
-
-                        // if (group < 10) {
-                        //     location.href = "./ab_cms";
-                        // } else {
-                            location.href = "./ab_dashboard";
-                        // }
+                        location.href = "./ab_dashboard";
                     }
                 } catch (e) {
                     console.log(e);

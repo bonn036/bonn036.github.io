@@ -1,41 +1,64 @@
 
 "use strict";
+function guid() {
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+
 const FC_BASE_URL = "https://1459473231569671.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/abhouse_main/index"
 const TEST_URL = "http://localhost:8000/2016-08-15/proxy/abhouse_main/index"
 const TEST2_URL = "http://127.0.0.1:9000"
 function fc(path, method, data, onSuccess, onError, onComplete) {
-    var url = FC_BASE_URL + path;
-    var dateTime = new Date().toGMTString();
+    var body = "None";
+    if (method == 'POST') {
+        body = JSON.stringify(data);
+    }
+
     var appKey = "203758497"
-    var source = 'web';
-    var Nonce = "";
-    var contentMD5 = "";
-    var sig = "{}";
+    var timeStamp = new Date().getTime() + "";
+    var Nonce = guid();
+    var contentType = "CONTENT_TYPE_TEXT";
+    var contentMD5 = CryptoJS.enc.Base64.stringify(CryptoJS.MD5(CryptoJS.enc.Utf8.parse(body)));
+    var Stage = "RELEASE";
+    var Audience = getCookie("aud");
+    var Authorization = getCookie("auth");
+    var sigHeaders = "X-Ca-Key,X-Ca-Nonce,X-Ca-Stage,Audience,Authorization";
+    var headers = "X-Ca-Key:" + appKey + "\n" +
+        "X-Ca-Nonce:" + Nonce + "\n" +
+        "X-Ca-Stage:" + Stage + "\n" +
+        "Audience:" + (Audience == null ? "" : Audience) + "\n" +
+        "Authorization:" + (Authorization == null ? "" : Authorization) + "\n";
+    var url = FC_BASE_URL + path;
+    var stringToSign = method + "\n" + 
+        contentMD5 + "\n" +
+        contentType + "\n" +
+        timeStamp + "\n" +
+        headers + "\n" +
+        url;
+    var sig = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(stringToSign), Nonce));
+
     $.ajax({
         url: url,
         type: method,
         contentType: "application/json",
-        data: JSON.stringify(data),
+        data: body,
         // crossDomain: true,
         // xhrFields: {
         //     withCredentials: true
         // },
         beforeSend: function (xhr) {
-            // xhr.setRequestHeader("X-Date", dateTime);
-            // xhr.setRequestHeader("source", source);
-            // xhr.setRequestHeader("X-Ca-Key", appKey);
-            // xhr.setRequestHeader("X-Ca-Nonce", Nonce);
-            // xhr.setRequestHeader("Content-MD5", contentMD5);
-            // xhr.setRequestHeader("X-Ca-Siguature", sig);
-            // xhr.setRequestHeader("X-Ca-SignatureMethod", "HmacSHA256");
-            // xhr.setRequestHeader("X-Ca-SignatureHeaders", "X-Ca-Key,X-Ca-Nonce");
-
-            // xhr.setRequestHeader("Audience", sessionStorage.getItem("aud"));
-            // xhr.setRequestHeader("Authorization", sessionStorage.getItem("auth"));
-            // xhr.setRequestHeader("Group", sessionStorage.getItem("group"));
-            xhr.setRequestHeader("Audience", getCookie("aud"));
-            xhr.setRequestHeader("Authorization", getCookie("auth"));
-            // xhr.setRequestHeader("Group", getCookie("group"));
+            xhr.setRequestHeader("X-Ca-Key", appKey);
+            xhr.setRequestHeader("X-Ca-Siguature", sig);
+            xhr.setRequestHeader("X-Ca-Signature-Headers", sigHeaders);
+            xhr.setRequestHeader("X-Timestamp", timeStamp);
+            xhr.setRequestHeader("X-Ca-Nonce", Nonce);
+            xhr.setRequestHeader("Content-Type", contentType);
+            xhr.setRequestHeader("Content-MD5", contentMD5);
+            xhr.setRequestHeader("X-Ca-Stage", Stage);
+            xhr.setRequestHeader("Audience", Audience);
+            xhr.setRequestHeader("Authorization", Authorization);
         },
         dataType: 'json',
         success: onSuccess,
