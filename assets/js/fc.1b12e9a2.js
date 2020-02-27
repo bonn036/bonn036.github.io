@@ -35,7 +35,7 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
         contentMD5 + "\n" +
         contentType + "\n" +
         timeStamp + "\n" +
-        headers + "\n" +
+        headers +
         url;
     var sig = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(stringToSign), Nonce));
 
