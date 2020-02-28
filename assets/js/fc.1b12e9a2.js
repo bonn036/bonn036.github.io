@@ -7,7 +7,7 @@ function guid() {
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
 
-const FC_BASE_URL = "https://1459473231569671.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/abhouse_main/index"
+const FC_BASE_URL = "http://1459473231569671.cn-beijing.fc.aliyuncs.com/2016-08-15/proxy/abhouse_main/index"
 const TEST_URL = "http://localhost:8000/2016-08-15/proxy/abhouse_main/index"
 const TEST2_URL = "http://127.0.0.1:9000"
 function fc(path, method, data, onSuccess, onError, onComplete) {
@@ -33,13 +33,16 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
         "Authorization:" + (authorization == null ? "" : authorization) + "\n";
     var url = FC_BASE_URL + path;
 
-    var stringToSign = method + "\n" + 
+    var stringToSign = method + "\n" +
         contentMD5 + "\n" +
         contentType + "\n" +
         timeStamp + "\n" +
         headers +
         url;
-    var sig = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(stringToSign), nonce));
+    var sig = CryptoJS.enc.Base64.stringify(
+        CryptoJS.enc.Utf8.parse(CryptoJS.HmacSHA256(
+            CryptoJS.enc.Utf8.parse(stringToSign),
+            CryptoJS.enc.Utf8.parse(nonce))));
 
     $.ajax({
         url: url,
