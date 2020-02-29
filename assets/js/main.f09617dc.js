@@ -187,7 +187,7 @@
                         cformSuccess();
                         setCookie("aud", xhr.getResponseHeader("Audience"))
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
-                        location.href = "./ab_dashboard";
+                        location.href = " http://abhouse.xyz/ab_dashboard";
                     }
                 } catch (e) {
                     console.log(e);
