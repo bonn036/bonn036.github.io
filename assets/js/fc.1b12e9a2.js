@@ -24,21 +24,23 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
     var contentMD5 = CryptoJS.enc.Base64.stringify(CryptoJS.MD5(CryptoJS.enc.Utf8.parse(body)));
     var stage = "RELEASE";
     var audience = getCookie("aud");
+    audience = audience == null ? "" : audience
     var authorization = getCookie("auth");
+    authorization = authorization == null ? "" : authorization
     var sigHeaders = "X-Ca-Key,X-Ca-Nonce,X-Ca-Stage,Audience,Authorization";
-    var headers = "X-Ca-Key:" + appKey + "\n" +
+    var headers = 
+        "X-Ca-Key:" + appKey + "\n" +
         "X-Ca-Nonce:" + nonce + "\n" +
         "X-Ca-Stage:" + stage + "\n" +
-        "Audience:" + (audience == null ? "" : audience) + "\n" +
-        "Authorization:" + (authorization == null ? "" : authorization) + "\n";
+        "Audience:" + audience + "\n" +
+        "Authorization:" + authorization + "\n";
     var url = FC_BASE_URL + path;
-
-    var stringToSign = method + "\n" +
-        contentMD5 + "\n" +
-        contentType + "\n" +
-        timeStamp + "\n" +
+    var stringToSign = method.toLowerCase() + "\n" +
+        contentMD5.toLowerCase() + "\n" +
+        contentType.toLowerCase() + "\n" +
+        timeStamp.toLowerCase() + "\n" +
         headers +
-        url;
+        url.toLowerCase();
     var sig = CryptoJS.enc.Base64.stringify(
         CryptoJS.enc.Utf8.parse(CryptoJS.HmacSHA256(
             CryptoJS.enc.Utf8.parse(stringToSign),
