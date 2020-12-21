@@ -72,7 +72,7 @@
 				}
 			};
 			try {
-				fc("/user/logout", 'GET', "", success);
+				fc("/logout", 'GET', "", success);
 			} catch (e) {
 				console.log(e)
 			}

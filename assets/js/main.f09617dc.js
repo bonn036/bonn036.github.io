@@ -197,7 +197,7 @@
             }
         };
         try {
-            fc("/user/login", 'POST', body, success, cformError());
+            fc("/login", 'POST', body, success, cformError());
         } catch (e) {
             console.log(e)
         }
