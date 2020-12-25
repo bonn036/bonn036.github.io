@@ -183,7 +183,6 @@
         var success = function (data, status, xhr) {
             if (status === 'success') {
                 try {
-                    cformSuccess();
                     csubmitMSG(false, data["message"]);
                     if (data["status"] == 200) {
                         setCookie("aud", xhr.getResponseHeader("Audience"))
@@ -195,12 +194,11 @@
                     console.log(e);
                 }
             } else {
-                console.log("status false");
                 csubmitMSG(false, "网络错误！");
             }
+            cformSuccess();
         };
         try {
-            console.log("hide");
             $("#btn_submit").attr("disabled", true);
             setInterval(function () {
                 $("#btn_submit").attr("disabled", false);
