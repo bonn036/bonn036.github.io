@@ -201,6 +201,7 @@
         try {
             $("#btn_submit").attr("disabled", true);
             setInterval(function () {
+                csubmitMSG(false, "连接超时！");
                 $("#btn_submit").attr("disabled", false);
             }, 5000);
             fc("/login", 'POST', body, success, cformError(), cformComplete());
