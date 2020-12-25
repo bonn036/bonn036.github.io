@@ -68,6 +68,7 @@ function fc(path, method, data, onSuccess, onError, onComplete) {
             xhr.setRequestHeader("Authorization", authorization);
         },
         dataType: 'json',
+        timeout: 5000,
         success: onSuccess,
         // success: function (data, status, xhr) {
         //     console.log("onSuccess: " + status);
