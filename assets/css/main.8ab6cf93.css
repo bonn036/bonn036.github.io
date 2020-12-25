@@ -347,6 +347,11 @@ input[type='checkbox'] {
 	color: #14bf98;
 }
 
+.form-control-submit-button:disabled {
+	background-color: transparent;
+	color: #14bf98;
+}
+
 /* Form Success And Error Message Formatting */
 #lmsgSubmit.h3.text-center.tada.animated,
 #cmsgSubmit.h3.text-center.tada.animated,
@@ -361,7 +366,7 @@ input[type='checkbox'] {
 }
 
 .help-block.with-errors .list-unstyled {
-	color: #787976;
+	color: #b93636;
 	font-size: 0.75rem;
 	line-height: 1.125rem;
 	text-align: left;

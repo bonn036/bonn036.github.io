@@ -167,7 +167,7 @@
         if (event.isDefaultPrevented()) {
             // handle the invalid form...
             cformError();
-            csubmitMSG(false, "Please fill all fields!");
+            csubmitMSG(false, "请填写账号密码");
         } else {
             // everything looks good!
             event.preventDefault();
@@ -183,30 +183,38 @@
         var success = function (data, status, xhr) {
             if (status === 'success') {
                 try {
+                    cformSuccess();
+                    csubmitMSG(false, data["message"]);
                     if (data["status"] == 200) {
-                        cformSuccess();
                         setCookie("aud", xhr.getResponseHeader("Audience"))
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
                         location.href = " ./ab_dashboard";
+                        return;
                     }
                 } catch (e) {
                     console.log(e);
                 }
             } else {
                 console.log("status false");
+                csubmitMSG(false, "网络错误！");
             }
         };
         try {
-            fc("/login", 'POST', body, success, cformError());
+            console.log("hide");
+            $("#btn_submit").attr("disabled", true);
+            setInterval(function () {
+                $("#btn_submit").attr("disabled", false);
+            }, 5000);
+            fc("/login", 'POST', body, success, cformError(), cformComplete());
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
         return false;
     }
 
     function cformSuccess() {
+        $("#btn_submit").attr("disabled", false);
         $("#loginForm")[0].reset();
-        csubmitMSG(true, "Message Submitted!");
         $("input").removeClass('notEmpty'); // resets the field label after submission
         $("textarea").removeClass('notEmpty'); // resets the field label after submission
     }
@@ -215,6 +223,9 @@
         $("#loginForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
             $(this).removeClass();
         });
+    }
+
+    function cformComplete() {
     }
 
     function csubmitMSG(valid, msg) {
