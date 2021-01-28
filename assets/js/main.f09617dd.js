@@ -187,6 +187,9 @@
                     if (data["status"] == 200) {
                         setCookie("aud", xhr.getResponseHeader("Audience"))
                         setCookie("auth", xhr.getResponseHeader("Authorization"))
+                        setCookie("avatar", data["data"]["avatar"])
+                        setCookie("ugroup", data["data"]["ugroup"])
+                        setCookie("uscc", data["data"]["uscc"])
                         location.href = " ./ab_dashboard";
                         return;
                     }

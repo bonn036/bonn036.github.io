@@ -58,10 +58,10 @@
 						if (data["status"] == 200) {
 							// sessionStorage.removeItem("aud");
 							// sessionStorage.removeItem("auth");
-							// sessionStorage.removeItem("group");
+							// sessionStorage.removeItem("ugroup");
 							delCookie("aud");
 							delCookie("auth");
-							// delCookie("group");
+							delCookie("ugroup");
 							location.href = "index.html";
 						}
 					} catch (e) {
